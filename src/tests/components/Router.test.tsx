@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Router from '../components/Router';;
+import Router from '../../components/Router';
 
-test('renders learn react link', () => {
+test('renders Router component', () => {
   render(<Router />);
-  const linkElement = screen.getByText(/learn react/i);
+  const linkElement = screen.getByText(/Authors/i);
   expect(linkElement).toBeInTheDocument();
 });

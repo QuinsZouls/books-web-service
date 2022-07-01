@@ -53,6 +53,8 @@
     "@types/react-router-dom": "^5.3.3",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.7.1"
-  }
+    "prettier": "^2.7.1",
+    "ts-jest": "^28.0.5"
+  },
+  "cracoConfig": "craco.config.js"
 }
