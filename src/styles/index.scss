@@ -1,5 +1,9 @@
 //Common
 @import '~bootstrap/scss/bootstrap';
 
+//Components
+@import './components/search';
+@import './components/sidemenu';
+
 //Pages
 @import './pages/books';

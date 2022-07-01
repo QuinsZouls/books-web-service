@@ -1,0 +1,13 @@
+.search-wrapper {
+  form {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+  .pagination-wrapper {
+    ul {
+      justify-content: end;
+    }
+  }
+}

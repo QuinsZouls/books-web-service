@@ -6,7 +6,7 @@ const BooksList: React.FC = () => {
   const { books } = useBooks();
   return (
     <div className="books-list">
-      {books?.map((book) => (
+      {books?.map(book => (
         <Card key={book._id}>
           <Card.Img variant="top" src={book.images[2]?.url} />
           <Card.Body>

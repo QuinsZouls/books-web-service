@@ -3,8 +3,9 @@ import React, {
   useState,
   useEffect,
   useMemo,
-  useContext,
+  useContext
 } from 'react';
+import { List } from 'immutable';
 import { getBooks } from '@/services/API.service';
 import { Book } from '@/interfaces/books.interface';
 import { Query } from '@/interfaces/query.interface';
@@ -18,25 +19,48 @@ interface BooksContextType {
   books?: Book[];
   total: number | undefined;
   skip: number | undefined;
-  queries?: Query[];
+  queries: List<Query>;
   loading: boolean;
   error?: any;
-  updateQueries: (queries: Query[]) => void;
+  updateQueries: (queries: List<Query>) => void;
   updateSkip: (skip: number) => void;
 }
 
-const BooksContext = createContext<BooksContextType>({} as BooksContextType);
+const BooksContext = createContext<BooksContextType>(
+  {} as BooksContextType
+);
 
-export const BooksProvider: React.FC<BooksProviderProps> = ({ children }) => {
+export const BooksProvider: React.FC<BooksProviderProps> = ({
+  children
+}) => {
   const [books, setBooks] = useState<Book[] | any>(null);
-  const [queries, setQueries] = useState<Query[]>([]);
+  const [queries, setQueries] = useState<List<Query>>(
+    List([
+      {
+        field: 'title[$options]=i&title[$regex]',
+        value: ''
+      },
+      {
+        field: 'author',
+        value: ''
+      },
+      {
+        field: 'publisher[$options]=i&publisher[$regex]',
+        value: ''
+      },
+      {
+        field: 'publish_year',
+        value: ''
+      }
+    ])
+  );
   const [total, setTotal] = useState<number | undefined>(0);
   const [skip, setSkip] = useState<number | undefined>(0);
   const [error, setError] = useState<any>();
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
-    getBooks(queries, skip)
-      .then((response) => {
+    getBooks(queries.toArray(), skip)
+      .then(response => {
         if (response.ok) {
           setBooks(response.data?.data);
           setSkip(response.data?.skip);
@@ -44,10 +68,12 @@ export const BooksProvider: React.FC<BooksProviderProps> = ({ children }) => {
         }
         setLoading(false);
       })
-      .catch((error) => setError(error));
+      .catch(error => setError(error));
   }, [queries, skip]);
-  function updateQueries(newQueries: Query[]) {
-    setQueries(newQueries);
+  function updateQueries(newQueries: List<Query>) {
+    if (newQueries) {
+      setQueries(newQueries);
+    }
   }
   function updateSkip(newSkip: number) {
     setSkip(newSkip);
@@ -56,13 +82,14 @@ export const BooksProvider: React.FC<BooksProviderProps> = ({ children }) => {
     () => ({
       books,
       total,
+      queries,
       skip,
       loading,
       error,
       updateQueries,
-      updateSkip,
+      updateSkip
     }),
-    [books, loading, error, skip, total]
+    [books, loading, error, skip, total, queries]
   );
 
   return (
