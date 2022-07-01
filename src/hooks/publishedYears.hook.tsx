@@ -26,9 +26,10 @@ interface PublishedYearsContextType {
   updateSkip: (skip: number) => void;
 }
 
-const AuthorsContext = createContext<PublishedYearsContextType>(
-  {} as PublishedYearsContextType
-);
+const PublishedYearsContext =
+  createContext<PublishedYearsContextType>(
+    {} as PublishedYearsContextType
+  );
 
 export const PublishedYearsProvider: React.FC<
   PublishedYearsProviderProps
@@ -93,12 +94,12 @@ export const PublishedYearsProvider: React.FC<
   );
 
   return (
-    <AuthorsContext.Provider value={memoedValue}>
+    <PublishedYearsContext.Provider value={memoedValue}>
       {children}
-    </AuthorsContext.Provider>
+    </PublishedYearsContext.Provider>
   );
 };
 
 export default function usePublishedYears() {
-  return useContext(AuthorsContext);
+  return useContext(PublishedYearsContext);
 }
