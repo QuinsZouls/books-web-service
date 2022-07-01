@@ -1,0 +1,24 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "pwa-chrome",
+      "request": "launch",
+      "name": "Launch SITE to Chrome",
+      "url": "http://localhost:3001",
+      "webRoot": "${workspaceFolder}",
+    },
+    {
+      "name": "Attach SITE to Chrome",
+      "port": 9222,
+      "request": "attach",
+      "type": "chrome",
+      "urlFilter": "http://localhost:3001/*", // use urlFilter instead of url!
+      "webRoot": "${workspaceFolder}",
+
+    }
+  ]
+}
